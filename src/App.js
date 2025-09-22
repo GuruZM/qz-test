@@ -29,6 +29,31 @@ function App() {
       alert("Error: " + err);
     }
   };
+  const printPDF = async () => {
+    try {
+      await qz.websocket.connect();
+
+      // PDF path relative to public folder
+      const pdfUrl = `${window.location.origin}/dummy.pdf`;
+
+      const config = qz.configs.create("EPSON TM-T20III Receipt"); // or your printer name
+
+      const data = [
+        {
+          type: "pdf",
+          format: "url",
+          data: pdfUrl,
+        },
+      ];
+
+      await qz.print(config, data);
+      alert("PDF print job sent!");
+      await qz.websocket.disconnect();
+    } catch (err) {
+      console.error("PDF Print Error:", err);
+      alert("Error: " + err);
+    }
+  };
 
   // Print test page
   const printTest = async () => {
@@ -55,6 +80,7 @@ function App() {
         Show Printers
       </button>
       <button onClick={printTest}>Print Test Page</button>
+      <button onClick={printPDF}>Print PDF</button>
     </div>
   );
 }
