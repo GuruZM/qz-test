@@ -34,7 +34,7 @@ function App() {
   const printTest = async () => {
     try {
       await qz.websocket.connect();
-      const config = qz.configs.create("Canon G4010 series"); // Exact printer name from OS
+      const config = qz.configs.create("EPSON TM-T20III Receipt"); // Exact printer name from OS
       const data = ["^XA^FO50,50^ADN,36,20^FDRAW ZPL EXAMPLE^FS^XZ"];
       // default printer
       qz.print(config, data).then(function () {
